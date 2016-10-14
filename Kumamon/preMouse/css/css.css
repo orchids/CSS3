@@ -1,0 +1,219 @@
+html,body,div,span,h1,h2,h3,h4,h5,h6,p,img,strong,section{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+*{ 
+	tap-highlight-color:rgba(0,0,0,0);
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+html{
+	width:100%; 
+	height:100%;
+}
+body{ 
+	width:100%; 
+	height:100%; 
+	background-color:#fff; 
+	font-family:"微软雅黑","Microsoft YaHei";
+}
+img{
+	display:block;
+}
+.content{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.hline{ border: 1px solid #000;position:absolute;left:0;top:43%;width:100%;height:0px;margin-top:-1px; }
+.vline{ border: 1px solid #000;position:absolute;left:50%;top:0;width:0;height:100%;margin-left:-1px; }
+
+.guidePage{
+	width: 100%;
+	height: 100%;
+}
+.pos_a{
+	position: absolute;
+}
+.dis_n{
+	display: none;
+}
+.opa_0{
+	opacity: 0;
+}
+
+/*  四只小熊  */
+.pre_bear01{
+	left:0;
+	top:51%;
+}
+.pre_bear02{
+	right:0;
+	top:69%;
+}
+.pre_bear03{
+	left:0;
+	top:11%;
+}
+.pre_bear04{
+	right:0;
+	top:21%;
+}
+/* 行走的小熊 */
+.pre_walkbear05{
+   top: 34%;
+   width: 25%;
+   height: auto;
+   left: -70px;
+}
+.pre_walkbear06{
+	width: 35%;
+	height: auto;
+	left: 30px;
+    top: 28.5%;
+}
+.pre_walkbear07{
+	width: 45%;
+	height: auto;
+	left: 110px;
+    top: 23%;
+}
+.pre_walkbear08{
+	width: 55%;
+	height: auto;
+	left: 50%;
+    top: 39%;
+	transform:translate(-50%,-50%);
+}
+
+/* 背面路过的小熊 */
+.back_comm{
+	position: absolute;
+	left:50%;
+	top:43%;
+	width: 65%;
+	height: auto;
+	/*margin-left:-241px;
+	margin-top:-298px;*/
+	transform:translate(-50%,-50%);
+}
+.backStart09{
+	/*margin-left:-175px;margin-top:-260px;*/
+	transform:translate(-50%,-50%);
+}
+/*广告语 css 萌萌哒 && 美即双十一 && 礼物 && 快来帮我*/
+.Text_mmda,
+.text_MgDb11,
+.text_gift,
+.text_coming{
+	width:100%;
+	left:0;
+	bottom:18%;
+}
+/*美即双十一*/
+.text_MgDb11,.text_coming{
+	bottom:20%;
+}
+.star01,.star02{
+	width:100%;
+	left:0;
+	top:14%
+}
+.star02{
+	top:35%;
+}
+.mgPaishou14,.mgRedBags15,.mgRun01,.mgRun02{
+	transform:translate(-50%,-55%);
+	width: 75%
+}
+/*想获得礼物*/
+.gift_haqian,.gift_tanqi01,.gift_tanqi02{
+	transform:translate(-50%,-55%);
+}
+/*快来帮我敷面膜*/
+.slideBear,.upBear,.hitBear{
+	transform:translate(-50%,-55%);
+}
+.hurry2play{transform:translate(-50%,-23%); width: 80%;}
+/* 开始页 */
+.guideHomePage{
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%; 
+}
+.text_mainAdv{
+	width:100%;
+	left:0;
+	top:10%;
+}
+.shakeBearBox{
+	width:140px;
+	height:165px;
+	position: absolute;
+	right:0;
+	top:1%;
+}
+.shakeBear{
+	position: absolute;
+	right:0;
+	bottom:0;
+}
+.rightNowBuy{
+	position: absolute;
+	left:0;
+	top:0; 
+	transform-origin: 80% 80%;
+	-webkit-animation: shake 1.5s linear 0s infinite alternate;
+	animation:shake 1.5s linear 0s infinite alternate; 
+}
+@-webkit-keyframes shake {
+     0%{-webkit-transform: rotate(0deg)}
+     50%{-webkit-transform: rotate(-20deg)}
+     100%{-webkit-transform: rotate(0deg)}
+ }
+ @keyframes shake {
+     0%{transform: rotate(0deg)}
+     50%{transform: rotate(-20deg)}
+     100%{transform: rotate(0deg)}
+ }
+ /*logo*/
+.mgLogo{
+	width:100%;
+	left:0;
+	top:0;
+}
+
+/* 详情 && 开始按钮  */
+.mgBeginBtnWrap{
+	width:100%;
+	height:23%; 
+	position: absolute;
+	left:0;
+	bottom:0;
+}
+.mgDetail,.mgBeginBtn{
+	width:184px;
+	height:35px;
+	display:block;
+	background:url(../images/beginBg.png) no-repeat -82px 0;
+	position: absolute;
+	left:50%;
+	top:0;
+	margin-left:-92px;
+}
+.mgBeginBtn{
+	width: 50%;
+    height: 50%;
+    background-size: cover;
+    background-position: left bottom;
+    margin-left:-190px;
+    top: 26%;
+}
