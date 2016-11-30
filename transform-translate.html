@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动</title>
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.box{
+		width: 400px;
+		height: 100px;
+		margin:40px auto;
+		overflow: hidden;
+	}
+	.box ul{
+		width: 900px;
+		height: 100px;
+		-webkit-animation: ani 4s infinite linear;
+		-o-animation: ani 4s infinite linear;
+		animation: ani 4s infinite linear;
+	}
+	.box ul:hover{
+		-webkit-animation-play-state: paused;
+		-o-animation-play-state: paused;
+		animation-play-state: paused;
+	}
+	.box ul li{
+		width: 100px;
+		height: 100px;
+		background: green;
+		float: left;
+		text-align: center;
+		color: #fff;
+		line-height: 100px;
+		font-size: 18px;
+	}
+	.box ul li:nth-child(odd){
+		background: red;
+	}
+	@-webkit-keyframes ani{
+		to{
+			-webkit-transform:translate(-500px);
+			-moz-transform:translate(-500px);
+			-ms-transform:translate(-500px);
+			-o-transform:translate(-500px);
+			transform:translate(-500px);
+		}
+	}
+	@keyframes ani{
+		to{
+			-webkit-transform:translate(-500px);
+			-moz-transform:translate(-500px);
+			-ms-transform:translate(-500px);
+			-o-transform:translate(-500px);
+			transform:translate(-500px);
+		}
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+</body>
+</html>

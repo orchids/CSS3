@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>编辑图片</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<div class="wrapper">
+		<h1>
+			Image Editor
+		</h1>
+
+		<form class="center" id="urlBox">
+			<input type="url" class="url-box" id="imgUrl" placeholder="Paste any image link and hit enter to start playing." />
+		</form>
+
+		<div class="sliders">
+			<form id="imageEditor">
+				<p>
+					<label for="gs">Grayscale</label>
+					<input type="range" name='gs' min=0 max=100 value="0" id="gs">
+				</p>
+				<p>
+					<label for="br">Brightness</label>
+					<input type="range" name='br' min=0 max=200 value=100 id="br">
+				</p>
+				<p>
+					<label for="ct">Contrast</label>
+					<input type="range" name='ct' min=0 max=200 value=100 id="ct">
+				</p>
+				<p>
+					<label for="huer">Grayscale</label>
+					<input type="range" name='huer' min=0 max=360 value=0 id="huer">
+				</p>
+				<p>
+					<label for="opacity">Opacity</label>
+					<input type="range" name='opacity' min=0 max=100 value=100 id="opacity">
+				</p>
+				<p>
+					<label for="invert">Invert</label>
+					<input type="range" name='invert' min=0 max=100 value=0 id="invert">
+				</p>
+				<p>
+					<label for="saturate">Saturate</label>
+					<input type="range" name='saturate' min=0 max=500 value=100 id="saturate">
+				</p>
+				<p>
+					<label for="sepia">Sepia</label>
+					<input type="range" name='sepia' min=0 max=100 value=0 id="sepia">
+				</p>
+
+				<input type="reset" form='imageEditor' id='reset' value='Reset'>
+			</form>
+		</div>
+
+		<div id="imageContainer" class="center">
+			<img src="img/aviary_heibai.jpg" />
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

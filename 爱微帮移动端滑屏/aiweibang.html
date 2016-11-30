@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no" />
+	<title>爱微帮</title>
+	<link rel="stylesheet" href="css/css.css" type="text/css" />
+	<script type="text/javascript" src="js\jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js\min.slip.js"></script>
+    <script type="text/javascript">
+jQuery(document).ready(function($) {
+	//页面滑动
+	var container = document.getElementById('container');
+    var pages = document.querySelectorAll('.page');
+    var slip = Slip(container, 'y').webapp(pages);
+
+	//动画效果
+	var myaudio = document.getElementById('j_audio');
+	var audioimg = $('#audioimg');
+	var isload = false;
+
+	var w = $(window).width();
+
+	$('img').load(function() {
+		isload = true;
+	});
+
+//loading居中
+	var lb = ($(window).height()-$('#logotext').height()) /2;
+	$('.loadingImg,.mask').css('bottom',lb);
+
+//每屏距离页面顶部距离
+	var pt = $(window).height() - $('.title').height() - $('.p1').height() - $('.logo').height();
+	if(pt>0){
+		$('.page1,.page2,.page3').css('padding-top',pt*2/5);
+	}
+	$('.p5').css('margin-top',-1*$('.p5').height()/2);
+
+//背景音乐
+	$('#music img').click(function(event) {
+		var st = audioimg.attr('st');
+		if(st=='play'){
+			myaudio.pause();
+			audioimg.attr('src','img/no-music.png');
+			audioimg.attr('st','pause');
+		}else{
+			myaudio.play();
+			audioimg.attr('src','img/music.png');
+			audioimg.attr('st','play');
+		}
+	});
+
+//loading加载
+	
+	$('.mask').animate({
+		bottom:lb + 110*(2/3)
+	},2500,function(){
+		if(isload){
+			$('.mask').animate({
+				bottom:lb+110
+			},3000,function() {
+				go();
+			});
+		}else{
+			$('.mask').animate({
+				bottom:lb+110
+			},8000,function() {
+				go();
+			});
+		}
+	});
+
+	var go = function(){
+		$('.loading').css('display','none');
+		$('.updown').css('display','block');
+		myaudio.play();
+		audioimg.attr('src','img/music.png');
+		audioimg.attr('st','play');
+	}
+
+});
+    </script>
+</head>
+<body>
+	<div class="loading">
+		<div class="loadingImg">
+			<img id="logotext" src="img/loading-2.png" alt="loading img">
+		</div>
+		<div class="mask"></div>
+	</div>
+	<div id="container">
+		<section class="page page0">
+		</section>
+		<section class="page page1">
+			<div class="logo"></div>
+			<header class="title">编辑器</header>
+			<div class="p1"></div>
+		</section>
+		<section class="page page2">
+			<div class="logo"></div>
+			<header class="title">微站</header>
+			<div class="p2"></div>
+		</section>
+		<section class="page page3">
+			<div class="logo"></div>
+			<header class="title">开发模式</header>
+			<div class="p3"></div>
+		</section>
+		<section class="page page5">
+			<div class="p5">
+				<img src="img\5.png" style="height:300px;">
+                <div class="bottombtn">
+                    <a href="#">查看特色榜单</a>
+                </div>
+			</div>
+		</section>
+	</div>
+	<div class="updown"><img src="img\huadong.png"></div>
+	<div id="music">
+        <img src="img\music.png" id="audioimg" st="play">
+        <audio src="music\loop2.mp3" id="j_audio" loop="loop"></audio>
+    </div>
+</body>
+</html>

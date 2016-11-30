@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>九宫格相册</title>
+<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+		list-style: none;
+	}
+	.container{
+		width: 300px;
+		height: 300px;
+		margin:140px auto;
+	}
+	.container li{
+		float: left;
+	}
+	.block{
+		width: 96px;
+		border: 2px solid #000;
+		height: 96px;
+		background-size: 100px;
+		transition:0.3s;
+		z-index: 10;
+		position: relative;
+	}
+	.block:hover{
+		z-index: 100;
+		-webkit-transform:scale(2);
+		-moz-transform:scale(2);
+		-ms-transform:scale(2);
+		-o-transform:scale(2);
+		transform:scale(2);
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<ul></ul>
+	</div>
+<script type="text/javascript">
+	var oUl = document.querySelector('ul');
+
+	for(var i = 0;i<9;i++){
+		var oLi = document.createElement('li');
+		oLi.classList.add('block');
+		oLi.style.backgroundImage = 'url(img/cat-'+(i+1)+'.png)';
+		oUl.appendChild(oLi);
+	}
+
+</script>
+</body>
+</html>
