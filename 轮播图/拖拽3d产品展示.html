@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3d产品展示</title>
+<style type="text/css">
+	.container{
+		width: 640px;
+		height: 378px;
+		margin: 30px auto;
+		position: relative;
+	}
+	.container>img{
+		position: absolute;
+		display: block;
+		left:0;
+		top:0;
+		z-index: 80;
+	}
+	.container>img.active{
+		z-index: 100;
+	}
+</style>
+</head>
+<body>
+	<div class="container"></div>
+</body>
+<script type="text/javascript">
+	var oContainer = document.querySelector('.container');
+
+	var amount = 77;
+	var count = 0;
+	var activeIndex = 0;
+
+	var lastX = 0;
+
+	for(var i =0;i<amount;i++){
+		var oImage = document.createElement('img');
+		oImage.src = `statics/phone/${i}.jpg`;
+		oImage.onload = loadedPlus;
+
+		if(i==activeIndex){
+			oImage.classList.add('active');
+		}
+
+		oImage.onmousedown = function(ev){
+			ev.preventDefault();
+		}
+
+		oContainer.appendChild(oImage);
+	}
+
+	function loadedPlus(){
+		count +=1;
+
+		if(count == amount){
+			console.log('loaded');
+		}
+	}
+
+	document.onmousedown = function({clientX}){
+		var disX = clientX;
+		document.onmousemove = function({clientX}){
+			var deltaX = clientX - disX;
+			changeActive(lastX - deltaX);
+			lastX = deltaX;
+		}
+
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+
+			lastX = 0;
+		}
+	}
+
+	var aImage = document.querySelectorAll('img');
+
+	function changeActive(direction){
+		var oActive = document.querySelector('.active');
+		oActive.classList.remove('active');
+
+		activeIndex += direction;
+
+		if(activeIndex<=-1){
+			activeIndex = 76;
+		}
+
+		if(activeIndex>=77){
+			activeIndex=0;
+		}
+
+		aImage[activeIndex].classList.add('active');
+	}
+</script>
+</html>

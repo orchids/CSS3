@@ -1,0 +1,78 @@
+#container{
+		width: 300px;
+		height:500px;
+		border: 3px solid #393939;
+		margin:40px auto;
+	}
+	.back{
+		width: 260px;
+	    height: 260px;
+	    background-color: #393939;
+	    padding: 20px;
+	}
+	.panel{
+		width: 270px;
+		height: 170px;
+		padding: 30px 0 0 30px;
+	}
+	.name{
+		display: inline-block;
+		font-size: 26px;
+		line-height: 35px;
+		width: 200px;
+	}
+	.heart{
+		display: inline-block;
+	}
+	.heart>img{
+		width: 20px;
+	}
+	.singer{
+		display: block;
+		line-height: 20px;
+	}
+	#outer{
+		width: 240px;
+		height: 10px;
+		background-color: #f0f0f0;
+		margin: 10px 0;
+	}
+	#inner{
+		width: 0;
+		height: 10px;
+		background-color: #4a4a4a;
+	}
+	.button-wrapper{
+		position: relative;
+	}
+	.status{
+		position: absolute;
+		left:0;
+		top:10px;
+	}
+	.status>img{
+		width: 60px;
+	}
+	.backward{
+		position: absolute;
+		left:70px;
+		top:20px;
+	}
+	.forward{
+		position: absolute;
+		left:120px;
+		top:20px;
+	}
+	.backward>img,.forward>img{
+		width: 40px;
+	}
+	.song{
+		color: white;
+		display: block;
+		line-height: 30px;
+		text-decoration: none;
+	}
+
+	.song.active{
+		color: pink;
+	}

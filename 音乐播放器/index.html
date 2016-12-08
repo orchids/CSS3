@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>音乐播放器</title>
+	<link rel="stylesheet" type="text/css" href="css/css.css" />
+</head>
+<body>
+	<div id="container">
+		<audio src=""></audio>
+		<div class="back"></div>
+		<div class="panel">
+			<span class="name">-</span>
+			<span class="heart">
+				<img src="img/player/heart.png" alt="">
+			</span>
+			<span class="singer">-</span>
+			<div id="outer">
+				<div id="inner"></div>
+			</div>
+			<div class="button-wrapper">
+				<div class="status">
+					<img src="img/player/play.png" alt="">
+				</div>
+				<div class="backward">
+					<img src="img/player/backward.png" alt="">
+				</div>
+				<div class="forward">
+					<img src="img/player/forward.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+// 歌曲
+	var playList = [
+		['花房姑娘','崔健'],
+		['喜剧之王','李荣浩'],
+		['counting-starts','one-republic'],
+		['greenslave','民间歌曲 '],
+		['young-for-you','gala']
+	]
+
+	/*
+		顺序播放 order
+		列表循环 listRepeat
+		单曲循环 singleRepeat
+		随机播放 random
+		单曲播放 single
+	*/ 
+
+	var modeList = [
+		'order',
+		'listRepeat',
+		'singleRepeat',
+		'random',
+		'single'
+	]
+
+	var modeIndex = 0;
+	var mode = modeList[modeIndex];
+
+	var oAudio = $('audio');
+// 歌名 歌手 播放进度
+	var oName = $('.name');
+	var oSinger = $('.singer');
+	var oProgress = $('#inner');
+	var oWrapper = $('#outer');
+
+	var oHeart = $('.heart');
+// 按钮
+	var oStatus = $('.status');
+	var oForward = $('.forward');
+	var oBackward = $('.backward');
+
+	var oBack = $('.back');
+
+	var playing = false;
+
+	var currentIndex = 0;
+
+	var firstPlay = true;
+
+	//加列表
+	playList.forEach(function(song,index){
+		var oA = document.createElement('a');
+		oA.classList.add('song');
+
+		oA.dataset.song = song[0];
+		oA.dataset.name = song[1];
+		oA.dataset.index = index;
+		console.log(song);
+
+		oA.innerHTML = song[0];
+		oA.href = 'javascript:void(0)';
+
+		oA.onclick = clickPlay;
+
+		oBack.appendChild(oA);
+	});
+
+//播放顺序控制
+	oHeart.onclick = function(){
+		modeIndex++;
+
+		if(modeIndex > modeList.length -1){
+			modeIndex = 0;
+		}
+
+		mode = modeList[modeIndex];
+
+		console.log(mode);
+	};
+//获取所有播放列表
+	var aA = document.querySelectorAll('.song');
+//点击播放
+	function clickPlay(){
+		currentIndex = this.dataset.index;
+		playSong();
+		console.log(currentIndex);
+	};
+
+	function $(selector){
+		return document.querySelector(selector);
+	};
+
+//播放暂停按钮的切换
+	function setStatusPlaying(){
+		oStatus.children[0].src = 'img/player/pause.png';
+		playing = true;
+	};
+
+	function setStatusPaused(){
+		oStatus.children[0].src = 'img/player/play.png';
+		playing = false;
+	};
+
+//播放样式
+	function playSong(goon){
+		setStatusPlaying();
+
+		if(goon){
+
+			if(firstPlay){
+				oAudio.src = `MP3/${playList[currentIndex][0]}.mp3`;
+				oName.innerHTML = playList[currentIndex][0];
+				oSinger.innerHTML = playList[currentIndex][1];
+
+				aA[currentIndex].classList.add('active');
+
+				firstPlay = false;
+			}
+
+			oAudio.play();
+			return;
+		}
+
+			oAudio.src = `MP3/${playList[currentIndex][0]}.mp3`;
+
+			oName.innerHTML = playList[currentIndex][0];
+			oSinger.innerHTML = playList[currentIndex][1];
+
+			oAudio.play();
+
+			aA.forEach(function(oA){
+				oA.classList.remove('active');
+			});
+
+			aA[currentIndex].classList.add('active');
+	}
+
+//暂停播放
+		function pauseSong(){
+			setStatusPaused();
+			oAudio.pause();
+		}
+//播放按钮
+		oStatus.onclick = function(){
+			if(playing){
+				playing = false;
+				pauseSong();
+			}else{
+				playing = true;
+				playSong(true);
+			}
+		}
+//播放进度计算
+		oAudio.ontimeupdate = function(){
+			oProgress.style.width = oAudio.currentTime/oAudio.duration * 100 + '%';
+		}
+//下一首按钮
+		oForward.onclick = function(){
+			nextSong();
+		}
+//上一首按钮
+		oBackward.onclick = function(){
+			previousSong();
+		}
+//播放结束后 执行下一首
+		oAudio.onended = function(){
+			nextSong();
+		}
+//下一首
+		function nextSong(){
+
+			if(mode == 'order'){
+
+				currentIndex++;
+
+				if(currentIndex > playList.length -1){
+					oAudio.currentTime = 0;
+					currentIndex --;
+					pauseSong();
+
+					return;
+				}
+
+				playSong();
+
+			}else if(mode == 'listRepeat'){
+
+				currentIndex = ++currentIndex % playList.length;
+				playSong();
+
+			}else if(mode =='singleRepeat'){
+
+				playSong();
+
+			}else if(mode == 'random'){
+
+				currentIndex = rnd(0,playList.length,currentIndex);
+				playSong();
+
+			}else if(mode =='single'){
+
+				oAudio.currentTime = 0;
+				pauseSong();
+
+				return;
+			}
+		}
+//上一首
+		function previousSong(){
+
+			if(mode == 'order'){
+
+				currentIndex--;
+
+				if(currentIndex<0){
+					oAudio.currentTime =0;
+					currentIndex++;
+					pauseSong();
+					return;
+				}
+
+				playSong();
+
+			}else if(mode == 'listRepeat'){
+
+				currentIndex--;
+
+				if(currentIndex==-1){
+					currentIndex = playList.length -1;
+				}
+
+				playSong();
+
+			}else if(mode == 'singleRepeat'){
+
+				playSong();
+
+			}else if(mode=='random'){
+
+				currentIndex = rnd(0,playList.length,currentIndex);
+				playSong();
+
+			}else if(mode =='single'){
+
+				oAudio.currentTime = 0;
+				pauseSong();
+
+				return;
+			}
+		}
+//随机数
+		function rnd(n,m,except){
+			var random = parseInt(Math.random()*(m-n)+n);
+			if(random==except){
+				return rnd(n,m,except);
+			}
+			return random;
+		}
+//进度点击操作
+		oWrapper.onmousedown = function(ev){
+			var clientX = ev.clientX;
+
+			oAudio.pause();
+			oAudio.currentTime = (clientX - oWrapper.offsetLeft)/oWrapper.offsetWidth*oAudio.duration;
+
+			document.onmousemove = function(ev){
+				var clientX = ev.clientX;
+
+				oAudio.currentTime = (clientX - oWrapper.offsetLeft)/oWrapper.offsetWidth*oAudio.duration;
+			}
+
+			document.onmouseup = function(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+
+				oAudio.play();
+			}
+		}
+</script>
+</html>

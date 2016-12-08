@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3d图片环</title>
+<style type="text/css">
+	body{
+		margin:0;
+		background: #000;
+		perspective:2300px;
+		transform-style:preserve-3d;
+	}
+	.container{
+		width: 133px;
+		height: 200px;
+		margin: 100px auto;
+		perspective:2300px;
+		transform-style:preserve-3d;
+		transform:rotateX(-10deg);
+	}
+	.block{
+		width: 133px;
+		height: 200px;
+		position: absolute;
+		left:0;
+		top:0;
+		border-radius: 10px;
+		box-shadow: 0 0 10px grey;
+	}
+	.shadow{
+		position: absolute;
+		left:0;
+		top:210px;
+		width: 133px;
+		height: 200px;
+		transform:scale(1,-1);
+		border-radius: 10px;
+		-webkit-mask:linear-gradient(rgba(0,0,0,0) 40%,red 120%);
+		opacity:0.5;
+	}
+</style>
+</head>
+<body>
+	<div class="container"></div>
+</body>
+<script type="text/javascript">
+	var oContainer = document.querySelector('div');
+
+	var amount = 10;
+
+	var deltaDegreeX = 0;
+	var deltaDegreeY = 25;
+
+	var speedX = 0;
+	var speedY = 0;
+
+	var lastY = 0;
+	var lastX = 0;
+
+	var timer = null;
+
+	for(var i =0;i<amount; i++){
+		var oDiv = document.createElement('div');
+		 	oDiv.classList.add('block');
+
+		var oShadow = document.createElement('div');
+		 	oShadow.classList.add('shadow');
+
+		 	oShadow.style.backgroundImage=`url(statics/img/${i+1}.jpg)`;
+
+		oDiv.appendChild(oShadow);
+		oDiv.style.backgroundImage = `url(statics/img/${i+1}.jpg)`;
+
+		oContainer.appendChild(oDiv);
+	}
+
+	var aBlock = document.querySelectorAll('.block');
+
+	aBlock.forEach(function(oBlock,index){
+		setTimeout(function(){
+			oBlock.style.transform = `rotateY(${index*(360/amount)}deg) translateZ(300px)`;
+			oBlock.style.transition = `1s ${0.2*(amount-index)}s`;
+		})
+	})
+
+	aBlock[0].addEventListener('transitionend', function(){
+		aBlock.forEach(function(oBlock,index){
+			var deg = index*(360/amount);
+			oBlock.style.transition = `1s`;
+			oBlock.style.opacity = Math.abs(deg-180)/180 +0.2;
+		})
+	}, false)
+
+	document.onmousedown = function({clientX,clientY}){
+		var disX = clientX - deltaDegreeX;
+		var disY = clientY - deltaDegreeY;
+
+		clearInterval(timer);
+		clearTransition();
+
+		document.onmousemove = function({clientX,clientY}){
+			var deltaX = clientX - disX;
+			var deltaY = clientY - disY;
+
+			deltaDegreeX = deltaX;
+			deltaDegreeY = deltaY;
+
+			speedX = deltaDegreeX - lastX;
+			speedY = deltaDegreeY - lastY;
+
+			setPosition();
+
+			lastX = deltaDegreeX;
+			lastY = deltaDegreeY;
+		}
+
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+
+			timer = setInterval(function(){
+
+				speedX *= 0.9;
+				speedY *= 0.9;
+
+				deltaDegreeX += speedX;
+				deltaDegreeY += speedY;
+
+				setPosition();
+			}, 16)
+		}
+	}
+
+	function setPosition(){
+		aBlock.forEach(function(oBlock,index){
+			var deg = index*(360/amount) + 0.4*deltaDegreeX;
+			oBlock.style.transform = `rotateY(${deg}deg) translateZ(300px)`;
+			oBlock.style.opacity = Math.abs(Math.abs(deg%360)-180)/180 + 0.2;
+		})
+
+		oContainer.style.transform = `rotateX(${-0.4*deltaDegreeY}deg)`;
+	}
+
+	function clearTransition(){
+		aBlock.forEach(function(oBlock){
+			oBlock.style.transition = '';
+		})
+	}
+</script>
+</html>
